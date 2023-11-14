@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 
-import CTA from '../components/CTA'
-import InfoCard from '../components/Cards/InfoCard'
-import ChartCard from '../components/Chart/ChartCard'
-import { Doughnut, Line } from 'react-chartjs-2'
-import ChartLegend from '../components/Chart/ChartLegend'
-import PageTitle from '../components/Typography/PageTitle'
-import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from '../icons'
-import RoundIcon from '../components/RoundIcon'
-import response from '../utils/demo/tableData'
+import CTA from "../components/CTA";
+import InfoCard from "../components/Cards/InfoCard";
+import ChartCard from "../components/Chart/ChartCard";
+import { Doughnut, Line } from "react-chartjs-2";
+import ChartLegend from "../components/Chart/ChartLegend";
+import PageTitle from "../components/Typography/PageTitle";
+import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "../icons";
+import RoundIcon from "../components/RoundIcon";
+import response from "../utils/demo/tableData";
 import {
   TableBody,
   TableContainer,
@@ -20,33 +20,33 @@ import {
   Avatar,
   Badge,
   Pagination,
-} from '@windmill/react-ui'
+} from "@windmill/react-ui";
 
 import {
   doughnutOptions,
   lineOptions,
   doughnutLegends,
   lineLegends,
-} from '../utils/demo/chartsData'
+} from "../utils/demo/chartsData";
 
 function Dashboard() {
-  const [page, setPage] = useState(1)
-  const [data, setData] = useState([])
+  const [page, setPage] = useState(1);
+  const [data, setData] = useState([]);
 
   // pagination setup
-  const resultsPerPage = 10
-  const totalResults = response.length
+  const resultsPerPage = 10;
+  const totalResults = response.length;
 
   // pagination change control
   function onPageChange(p) {
-    setPage(p)
+    setPage(p);
   }
 
   // on page change, load new sliced data
   // here you would make another server request for new data
   useEffect(() => {
-    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage))
-  }, [page])
+    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+  }, [page]);
 
   return (
     <>
@@ -108,10 +108,16 @@ function Dashboard() {
               <TableRow key={i}>
                 <TableCell>
                   <div className="flex items-center text-sm">
-                    <Avatar className="hidden mr-3 md:block" src={user.avatar} alt="User image" />
+                    <Avatar
+                      className="hidden mr-3 md:block"
+                      src={user.avatar}
+                      alt="User image"
+                    />
                     <div>
                       <p className="font-semibold">{user.name}</p>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">{user.job}</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        {user.job}
+                      </p>
                     </div>
                   </div>
                 </TableCell>
@@ -122,7 +128,9 @@ function Dashboard() {
                   <Badge type={user.status}>{user.status}</Badge>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">{new Date(user.date).toLocaleDateString()}</span>
+                  <span className="text-sm">
+                    {new Date(user.date).toLocaleDateString()}
+                  </span>
                 </TableCell>
               </TableRow>
             ))}
@@ -151,7 +159,7 @@ function Dashboard() {
         </ChartCard>
       </div>
     </>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

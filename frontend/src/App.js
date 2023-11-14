@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { createContext, lazy, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,13 +13,18 @@ const Login = lazy(() => import("./pages/Login"));
 const CreateAccount = lazy(() => import("./pages/CreateAccount"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
+export const context = createContext(null);
+
 function App() {
+  const [isAdmin, setIsAdmin] = useState(false);
+
   return (
-    <>
+    <context.Provider value={{ isAdmin, setIsAdmin }}>
       <Router>
-        {/* <AccessibleNavigationAnnouncer /> */}
+        <AccessibleNavigationAnnouncer />
         <Switch>
           <Route path="/login" component={Login} />
+          <Route path="/admin/login" component={() => <Login type="admin" />} />
           <Route path="/create-account" component={CreateAccount} />
           <Route path="/forgot-password" component={ForgotPassword} />
           <Route path="/create" component={RegistrationForm} />
@@ -30,7 +35,7 @@ function App() {
           <Redirect exact from="/" to="/login" />
         </Switch>
       </Router>
-    </>
+    </context.Provider>
   );
 }
 
