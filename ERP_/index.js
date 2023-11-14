@@ -10,6 +10,8 @@ const app = express();
 const path = require("path");
 const Ragistration = require("./Router/Authetication/Ragistration");
 const Login = require("./Router/Authetication/Login");
+const UserList = require("./Router/Dashbord/UserList");
+const UserDetails = require("./Router/Dashbord/UserDetails");
 
 const jwt = require("jsonwebtoken");
 const authCheck = require("./middleware/authCheck");
@@ -22,6 +24,9 @@ app.use(express.json());
 app.use(cors());
 app.use(Ragistration);
 app.use(Login);
+
+app.use(UserList);
+app.use(UserDetails);
 
 const url = `mongodb+srv://Erp:1234@atlascluster.brub2yo.mongodb.net/erp?retryWrites=true&w=majority`;
 
