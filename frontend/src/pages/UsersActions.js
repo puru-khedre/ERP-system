@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import InfoCard from "../components/Cards/InfoCard";
 import PageTitle from "../components/Typography/PageTitle";
-import { PeopleIcon } from "../icons";
+import { EditIcon, PeopleIcon, TrashIcon } from "../icons";
 import RoundIcon from "../components/RoundIcon";
-import response from "../utils/demo/tableData";
 import {
   TableBody,
   TableContainer,
@@ -13,14 +12,32 @@ import {
   TableCell,
   TableRow,
   TableFooter,
-  Avatar,
-  Badge,
   Pagination,
-  Card,
-  CardBody,
+  Button,
 } from "@windmill/react-ui";
 
-function Users() {
+function Actions({ id }) {
+  return (
+    <>
+      <Button
+        iconLeft={EditIcon}
+        layout="outline"
+        className="focus:shadow-outline-purple border-purple-500"
+      >
+        Edit
+      </Button>
+      <Button
+        iconLeft={TrashIcon}
+        layout="outline"
+        className="focus:shadow-outline-red border-red-500"
+      >
+        Delete
+      </Button>
+    </>
+  );
+}
+
+function UsersAction() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
@@ -48,7 +65,7 @@ function Users() {
 
   return (
     <>
-      <PageTitle>Users</PageTitle>
+      <PageTitle>UsersAction</PageTitle>
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
@@ -68,8 +85,8 @@ function Users() {
             <tr>
               <TableCell>Name</TableCell>
               <TableCell>Department</TableCell>
-              <TableCell>Address</TableCell>
-              <TableCell>Date</TableCell>
+
+              <TableCell>Actions</TableCell>
             </tr>
           </TableHeader>
           <TableBody>
@@ -90,14 +107,14 @@ function Users() {
                   <TableCell>
                     <span className="text-sm">{user.department}</span>
                   </TableCell>
+
                   <TableCell>
-                    <span className="text-sm">{user.address}</span>
-                    {/* <Badge type={user.status}>{user.status}</Badge> */}
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">
-                      {/* {new Date(user.date).toLocaleDateString()} */}
-                      {new Date().toLocaleDateString()}
+                    {/* <span className="text-sm"> */}
+                    {/* {new Date(user.date).toLocaleDateString()} */}
+                    {/* {new Date().toLocaleDateString()}
+                    </span> */}
+                    <span className="flex flex-row gap-2">
+                      <Actions id={user._id} />
                     </span>
                   </TableCell>
                 </TableRow>
@@ -118,25 +135,4 @@ function Users() {
   );
 }
 
-export function User({ match, ...props }) {
-  const [user, setUser] = useState();
-
-  // useEffect(async () => {
-  //   try {
-  //     const res = await fetch("http://localhost:4000/users/userlist");
-  //   } catch (error) {}
-  // }, []);
-
-  return (
-    <Card className="mt-8">
-      <CardBody>
-        <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">
-          Revenue
-        </p>
-        <code className="text-gray-600 dark:text-gray-400">{}</code>
-      </CardBody>
-    </Card>
-  );
-}
-
-export default Users;
+export default UsersAction;

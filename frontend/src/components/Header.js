@@ -18,6 +18,9 @@ import {
   DropdownItem,
   WindmillContext,
 } from "@windmill/react-ui";
+import { context } from "../App";
+
+import { useHistory } from "react-router-dom";
 
 function Header() {
   // const { mode, toggleMode } = useContext(WindmillContext);
@@ -34,8 +37,12 @@ function Header() {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   }
 
+  const { setIsAdmin } = useContext(context);
+
+  const history = useHistory();
+
   return (
-    <header className="z-40 py-4 bg-purple-100 shadow-bottom dark:bg-gray-800">
+    <header className="z-40 py-4 bg-purple-100 shadow dark:bg-gray-800">
       <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
         {/* <!-- Mobile hamburger --> */}
         <button
@@ -138,7 +145,13 @@ function Header() {
                 <OutlineCogIcon className="w-4 h-4 mr-3" aria-hidden="true" />
                 <span>Settings</span>
               </DropdownItem>
-              <DropdownItem onClick={() => alert("Log out!")}>
+              <DropdownItem
+                onClick={() => {
+                  alert("Log out!");
+                  setIsAdmin();
+                  history.push("/login");
+                }}
+              >
                 <OutlineLogoutIcon
                   className="w-4 h-4 mr-3"
                   aria-hidden="true"

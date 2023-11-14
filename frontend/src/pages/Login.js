@@ -40,7 +40,7 @@ function Login({ type }) {
           setError(data.error);
         } else {
           alert("Login successfully");
-          setIsAdmin(true);
+          setIsAdmin(false);
           history.push("/app");
         }
       } catch (e) {
@@ -56,7 +56,7 @@ function Login({ type }) {
     try {
       alert("admin login successfull");
       setIsAdmin(true);
-      history.push("/admin/app");
+      history.push("/app");
     } catch (e) {
       console.log(e.message);
     }

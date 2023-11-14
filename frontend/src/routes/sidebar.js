@@ -16,6 +16,11 @@ const admin = [
     icon: "PeopleIcon", // the component being exported from icons/index.js
     name: "Users", // name that appear in Sidebar
   },
+  {
+    path: "/app/users-action",
+    name: "Actions",
+    icon: "ButtonsIcon",
+  },
 ];
 
 const normal = [

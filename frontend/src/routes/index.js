@@ -1,8 +1,9 @@
 import { lazy } from "react";
-import { User } from "../pages/Users";
-
 // use lazy for better code splitting, a.k.a. load faster
+
 const Dashboard = lazy(() => import("../pages/Dashboard"));
+const { User } = lazy(() => import("../pages/Users"));
+const UsersAction = lazy(() => import("../pages/UsersActions"));
 const Users = lazy(() => import("../pages/Users"));
 const Forms = lazy(() => import("../pages/Forms"));
 const Cards = lazy(() => import("../pages/Cards"));
@@ -32,38 +33,39 @@ const adminRoutes = [
     path: "/users", // the url
     component: Users, // view rendered
   },
-  {
-    path: "/forms",
-    component: Forms,
-  },
-  {
-    path: "/cards",
-    component: Cards,
-  },
-  {
-    path: "/charts",
-    component: Charts,
-  },
-  {
-    path: "/buttons",
-    component: Buttons,
-  },
-  {
-    path: "/modals",
-    component: Modals,
-  },
-  {
-    path: "/tables",
-    component: Tables,
-  },
+  { path: "/users-action", component: UsersAction },
+  // {
+  //   path: "/forms",
+  //   component: Forms,
+  // },
+  // {
+  //   path: "/cards",
+  //   component: Cards,
+  // },
+  // {
+  //   path: "/charts",
+  //   component: Charts,
+  // },
+  // {
+  //   path: "/buttons",
+  //   component: Buttons,
+  // },
+  // {
+  //   path: "/modals",
+  //   component: Modals,
+  // },
+  // {
+  //   path: "/tables",
+  //   component: Tables,
+  // },
   {
     path: "/404",
     component: Page404,
   },
-  {
-    path: "/blank",
-    component: Blank,
-  },
+  // {
+  //   path: "/blank",
+  //   component: Blank,
+  // },
 ];
 
 const normalRoutes = [

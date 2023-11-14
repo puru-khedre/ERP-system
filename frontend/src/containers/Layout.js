@@ -17,6 +17,7 @@ function Layout() {
   let location = useLocation();
 
   const { isAdmin } = useContext(context);
+  console.log({ isAdmin });
 
   useEffect(() => {
     closeSidebar();
@@ -48,8 +49,8 @@ function Layout() {
                       />
                     ) : null;
                   })}
-                  <Route exact={true} path="/app/users/:id" component={User} />
-                  <Redirect exact from="/app" to={`/app/dashboard`} />
+                  {/* <Redirect exact from="/app" to={`/app/dashboard`} /> */}
+                  <Route exact path="/app/users/:id" component={User} />
                 </>
               ) : (
                 <>
