@@ -21,6 +21,7 @@ const UserSchema = mongoose.Schema({
   password: String,
   confirm_password: String,
   user_id: String,
+  profile_image: String,
 });
 
 module.exports = mongoose.model("users", UserSchema);
