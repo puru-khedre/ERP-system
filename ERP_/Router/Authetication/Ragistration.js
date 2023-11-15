@@ -2,10 +2,30 @@ const express = require("express");
 const router = express.Router();
 const Users = require("../../Schema/Users_schema");
 const bcrypt = require("bcrypt");
-var user_id;
+const multer = require('multer');
+const path = require('path');
 
-router.post("/auth/signup", async (req, res) => {
-  const {
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "public/Images"),
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
+  },
+});
+
+const PropertyImages = multer({
+  storage: storage,
+}).fields([
+  { name: 'property_images', maxCount: 10 },
+]);
+
+function uniqid() {
+  return (new Date()).getTime() + Math.random().toString(16).slice(2);
+}
+
+router.post("/auth/signup", PropertyImages
+  , async (req, res) => {
+  try {
+    const {
     name,
     department,
     designation,
@@ -25,20 +45,23 @@ router.post("/auth/signup", async (req, res) => {
     emergency_contact_person_mobile,
     password,
     confirm_password,
+    PropertyImages,
   } = req.body;
-  Users.find().count(async function (err, count) {
-    console.log("Number of docs: ", count);
-    user_id = count;
+  console.log('Incoming Request Data:', req.body);
 
-    const encrypt_password = await bcrypt.hash(password, 10);
+    Users.find().count(async function (err, count) {
+      console.log("Number of docs: ", count);
+      user_id = count;
 
-    console.log("user id ", user_id);
+      const encrypt_password = await bcrypt.hash(password, 10);
 
-    const user_exist = await Users.findOne({ email: email });
+      console.log("user id ", user_id);
 
-    if (user_exist) {
-      res.send({ error: "The Email is already in use !" });
-    } else {
+      const user_exist = await Users.findOne({ email: email });
+
+      if (user_exist) {
+        res.send({ error: "The Email is already in use !" });
+      } else {
       if (name == undefined || name == "") {
         res.send({ error: "name Required" });
       } else if (department == undefined || department == "") {
@@ -77,6 +100,10 @@ router.post("/auth/signup", async (req, res) => {
       ) {
         res.send({ error: "emergency contact  Required" });
       }
+         // for the property images
+    else if(req?.files?.property_images == undefined || req?.files?.property_images.length == 0){
+      res.send({error:'property images Required'})
+    }
 
       //     else if(emergency_contact_person_mobile == undefined || emergency_contact_person_mobile ==""){
       //       res.send({error:'Date of birth Required'})
@@ -85,7 +112,7 @@ router.post("/auth/signup", async (req, res) => {
         res.send({ error: "password Required" });
       } else if (confirm_password == undefined || confirm_password == "") {
         res.send({ error: "confirm password Required" });
-      } else {
+      } 
         const userDetail = {
           name: name,
           department: department,
@@ -106,17 +133,25 @@ router.post("/auth/signup", async (req, res) => {
           emergency_contact_person_mobile: emergency_contact_person_mobile,
           password: encrypt_password,
           confirm_password: confirm_password,
+          property_images:PropertyImages
         };
-        Users.create(userDetail, (err, result) => {
+        console.log("User Detail:", userDetail);
+
+       Users.create(userDetail, (err, result) => {
           if (err) {
-            res.status(500).send({ error: err.message, line: 111 });
+            console.error("Error creating user:", err);
+            res.status(500).send({ error: "Internal Server Error" });
           } else {
-            res.send({ message: "User Created Succesfully" });
+            console.log("User Created Successfully");
+            res.send({ message: "User Created Successfully" });
           }
         });
       }
-    }
-  });
+    });
+  } catch (error) {
+    console.error("Error in signup endpoint:", error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
 });
 
 module.exports = router;
