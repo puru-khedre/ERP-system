@@ -1,17 +1,29 @@
+// usersRouter.js
 const express = require("express");
 const router = express.Router();
 const Users = require("../../Schema/Users_schema");
 
+router.delete("/users/user_delete/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
 
-router.get("/users/user_delete/:id", async (req, res) => {
-    // const userDetials = await Users.findOne({user_id:req.params.id})
-    const userDetials = await Users.deleteOne({user_id:req.params.id})
-    console.log('user details',userDetials)
-    if(userDetials?.deletedCount == 0){
-      res.send({error:"user Not Found"})
+    // Check if the user exists before deleting
+    const user = await Users.findOne({ user_id: userId });
+
+    if (!user) {
+      res.status(404).send({ error: "User Not Found" });
+      return;
     }
-    else{
-        res.send({result:"user delete successfully"})
-    }
-   });
-  module.exports = router;
+
+    // Delete the user
+    const userDetails = await Users.findOneAndDelete({ user_id: userId });
+    console.log('user details', userDetails);
+
+    res.send({ result: "User deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+});
+
+module.exports = router;

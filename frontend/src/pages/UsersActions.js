@@ -16,32 +16,6 @@ import {
   Button,
 } from "@windmill/react-ui";
 
-function Actions({ user_id, onDelete }) {
-  const handleDelete = () => {
-    onDelete(user_id);
-  };
-
-  return (
-    <>
-      <Button
-        iconLeft={EditIcon}
-        layout="outline"
-        className="focus:shadow-outline-purple border-purple-500"
-      >
-        Edit
-      </Button>
-      <Button
-        iconLeft={TrashIcon}
-        layout="outline"
-        className="focus:shadow-outline-red border-red-500"
-        onClick={handleDelete}
-      >
-        Delete
-      </Button>
-    </>
-  );
-}
-
 function UsersAction() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
@@ -61,13 +35,11 @@ function UsersAction() {
         method: "DELETE",
       });
 
-      const result = await res.json();
-
-      if (result.error) {
-        console.error(result.error);
-      } else {
+      if (res.ok) {
         // Remove the deleted user from the data array
         setData((prevData) => prevData.filter((user) => user.user_id !== user_id));
+      } else {
+        console.error("Delete request failed with status:", res.status);
       }
     } catch (error) {
       console.error("Error during delete:", error);
@@ -130,7 +102,14 @@ function UsersAction() {
                   </TableCell>
                   <TableCell>
                     <span className="flex flex-row gap-2">
-                      <Actions user_id={user.user_id} onDelete={handleDelete} />
+                      <Button
+                        iconLeft={TrashIcon}
+                        layout="outline"
+                        className="focus:shadow-outline-red border-red-500"
+                        onClick={() => handleDelete(user.user_id)}
+                      >
+                        Delete
+                      </Button>
                     </span>
                   </TableCell>
                 </TableRow>

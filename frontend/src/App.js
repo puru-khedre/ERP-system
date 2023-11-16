@@ -5,6 +5,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
 import RegistrationForm from "./Create";
 
