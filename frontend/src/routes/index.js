@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import UserDetails from "../pages/UserDetails";
 // use lazy for better code splitting, a.k.a. load faster
 
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -71,7 +72,7 @@ const adminRoutes = [
 const normalRoutes = [
   {
     path: "/details",
-    component: User,
+    component: UserDetails,
   },
 ];
 

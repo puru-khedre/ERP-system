@@ -1,4 +1,4 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { SidebarContext } from "../context/SidebarContext";
 import {
   SearchIcon,
@@ -55,7 +55,7 @@ function Header() {
     }
   }, []);
 
-  const userWithId11 = data.find((user) => user.id === 0);
+  // const userWithId11 = data.find((user) => user.id === 0);
   return (
     <header className="z-40 py-4 bg-purple-100 shadow dark:bg-gray-800">
       <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
@@ -137,7 +137,7 @@ function Header() {
               aria-label="Account"
               aria-haspopup="true"
             >
-     {userWithId11 && (
+              {/* {userWithId11 && (
   <Avatar
     className="align-middle"
     src={`http://localhost:4000${userWithId11.property_images}`}
@@ -145,8 +145,7 @@ function Header() {
     aria-hidden="true"
     onLoad={() => console.log("Image loaded:", `http://localhost:4000${userWithId11.property_images}`)}
   />
-)}
-
+)} */}
             </button>
             <Dropdown
               align="right"

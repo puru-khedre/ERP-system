@@ -42,6 +42,7 @@ function Login({ type }) {
           alert("Login successfully");
           setIsAdmin(false);
           history.push("/app");
+          localStorage.setItem("user", JSON.stringify(data));
         }
       } catch (e) {
         console.log(e.message);
