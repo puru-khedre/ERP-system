@@ -7,7 +7,7 @@ router.delete("/users/user_delete/:id", async (req, res) => {
   try {
     const userId = req.params.id;
 
-    // Check if the user exists before deleting
+
     const user = await Users.findOne({ user_id: userId });
 
     if (!user) {

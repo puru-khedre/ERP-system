@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useParams } from "react-router-dom";
 import InfoCard from "../components/Cards/InfoCard";
 import PageTitle from "../components/Typography/PageTitle";
 import { PeopleIcon } from "../icons";
@@ -122,13 +122,14 @@ function Users() {
 
 export function User({ match, ...props }) {
   const [user, setUser] = useState();
-
+  const { id } = useParams();
+console.log('userid ',id)
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userId = match.params.user_id;
-        const res = await fetch(`http://localhost:4000/users/${userId}`);
+        const res = await fetch(`http://localhost:4000/users/${id}`);
         const userData = await res.json();
+        console.log('user',userData)
         setUser(userData);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -136,20 +137,23 @@ export function User({ match, ...props }) {
     };
 
     fetchUserData();
-  }, [match.params.id]);
+  }, [id]);
 
   return (
     <div>
       <div className="container">
         <div className="main-body">
           <div className="row gutters-sm">
+          {user && (
+              <>
             <div className="col-md-4 mb-3">
               <div className="card">
                 <div className="card-body">
                   <div className="d-flex flex-column align-items-center text-center">
-                    <img src={user?.profile_image || 'https://bootdey.com/img/Content/avatar/avatar7.png'} alt="User" className="rounded-circle" width="150" />
-                    <div className="mt-3">
-                      <h4>{user ? user.name : 'Loading...'}</h4>
+                    <img src={`http://localhost:4000`+ user.result?.profile_image || 'https://bootdey.com/img/Content/avatar/avatar7.png'} alt="User" className="rounded-circle" width="150" />
+                    {console.log("image", `http://localhost:4000${user.result?.profile_image}`)}                    <div className="mt-3">
+                      <h4>{user ? user.result.name : 'Loading...'}</h4>
+                      {console.log("user name ",user.result.name)}
                     </div>
                   </div>
                 </div>
@@ -166,7 +170,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Department</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.department}
+                          {user.result.department}
                         </div>
                       </div>
                       <hr />
@@ -175,7 +179,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Designation</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.designation}
+                          {user.result.designation}
                         </div>
                       </div>
                       <hr />
@@ -184,7 +188,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Address</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.address}
+                          {user.result.address}
                         </div>
                       </div>
                       <hr />
@@ -193,7 +197,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">City</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.city}
+                          {user.result.city}
                         </div>
                       </div>
                       <hr />
@@ -202,7 +206,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">State</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.state}
+                          {user.result.state}
                         </div>
                       </div>
                       <hr />
@@ -211,7 +215,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Email</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.email}
+                          {user.result.email}
                         </div>
                       </div>
                       <hr />
@@ -220,7 +224,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Phone No 1</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.phone_no_1}
+                          {user.result.phone_no_1}
                         </div>
                       </div>
                       <hr />
@@ -229,7 +233,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Phone No 2</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.phone_no_2}
+                          {user.result.phone_no_2}
                         </div>
                       </div>
                       <hr />
@@ -238,7 +242,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Blood Group</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.blood_group}
+                          {user.result.blood_group}
                         </div>
                       </div>
                       <hr />
@@ -247,7 +251,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Aadhar Number</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.adhar_number}
+                          {user.result.adhar_number}
                         </div>
                       </div>
                       <hr />
@@ -256,7 +260,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Driving License</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.driving_license}
+                          {user.result.driving_license}
                         </div>
                       </div>
                       <hr />
@@ -265,7 +269,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Date of Birth</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.date_of_birth}
+                          {user.result.date_of_birth}
                         </div>
                       </div>
                       <hr />
@@ -274,7 +278,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Father's Name</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.father_name}
+                          {user.result.father_name}
                         </div>
                       </div>
                       <hr />
@@ -283,7 +287,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Mother's Name</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.mother_name}
+                          {user.result.mother_name}
                         </div>
                       </div>
                       <hr />
@@ -292,7 +296,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Emergency Contact Person</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.emergency_contact_person}
+                          {user.result.emergency_contact_person}
                         </div>
                       </div>
                       <hr />
@@ -301,7 +305,7 @@ export function User({ match, ...props }) {
                           <h6 className="mb-0">Emergency Contact Person Mobile</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          {user.emergency_contact_person_mobile}
+                          {user.result.emergency_contact_person_mobile}
                         </div>
                       </div>
                       <hr />
@@ -315,6 +319,8 @@ export function User({ match, ...props }) {
                 </div>
               </div>
             </div>
+            </>
+          )}
           </div>
         </div>
       </div>
