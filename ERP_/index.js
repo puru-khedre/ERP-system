@@ -12,6 +12,7 @@ const Ragistration = require("./Router/Authetication/Ragistration");
 const Login = require("./Router/Authetication/Login");
 const UserList = require("./Router/Dashbord/UserList");
 const UserDetails = require("./Router/Dashbord/UserDetails");
+const UserDelete = require("./Router/Dashbord/UserDelete");
 
 const jwt = require("jsonwebtoken");
 const authCheck = require("./middleware/authCheck");
@@ -28,6 +29,7 @@ app.use(Login);
 
 app.use(UserList);
 app.use(UserDetails);
+app.use(UserDelete);
 
 const url = `mongodb+srv://Erp:1234@atlascluster.brub2yo.mongodb.net/erp?retryWrites=true&w=majority`;
 

@@ -7,7 +7,6 @@ router.delete("/users/user_delete/:id", async (req, res) => {
   try {
     const userId = req.params.id;
 
-
     const user = await Users.findOne({ user_id: userId });
 
     if (!user) {
@@ -17,7 +16,7 @@ router.delete("/users/user_delete/:id", async (req, res) => {
 
     // Delete the user
     const userDetails = await Users.findOneAndDelete({ user_id: userId });
-    console.log('user details', userDetails);
+    console.log("user details", userDetails);
 
     res.send({ result: "User deleted successfully" });
   } catch (error) {

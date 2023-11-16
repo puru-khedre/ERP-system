@@ -31,13 +31,18 @@ function UsersAction() {
 
   const handleDelete = async (user_id) => {
     try {
-      const res = await fetch(`http://localhost:4000/users/user_delete/${user_id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `http://localhost:4000/users/user_delete/${user_id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (res.ok) {
         // Remove the deleted user from the data array
-        setData((prevData) => prevData.filter((user) => user.user_id !== user_id));
+        setData((prevData) =>
+          prevData.filter((user) => user.user_id !== user_id)
+        );
       } else {
         console.error("Delete request failed with status:", res.status);
       }
@@ -89,7 +94,7 @@ function UsersAction() {
                 <TableRow key={i}>
                   <TableCell>
                     <div className="flex items-center text-sm">
-                      <a href={`/app/users/pk/${user.user_id}`}>
+                      <a href={`/app/users/${user.user_id}`}>
                         <p className="font-semibold">{user.name}</p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
                           {user.email}
