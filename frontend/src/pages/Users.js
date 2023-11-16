@@ -79,7 +79,8 @@ function Users() {
                 <TableRow key={i}>
                   <TableCell>
                     <div className="flex items-center text-sm">
-                      <a href="/app/users/pk">
+                    {/* to={`/PropertyPage/${property.property_id}`}  */}
+                      <a href={`/app/users/pk/${user.user_id}`}>
                         <p className="font-semibold">{user.name}</p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
                           {user.email}

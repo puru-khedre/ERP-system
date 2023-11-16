@@ -45,6 +45,7 @@ router.post("/auth/signup", PropertyImages, async (req, res) => {
       emergency_contact_person_mobile,
       password,
       confirm_password,
+      // user_id,
     } = req.body;
 
     const filePath = req.files.property_images
@@ -140,6 +141,7 @@ router.post("/auth/signup", PropertyImages, async (req, res) => {
           password: encrypt_password,
           confirm_password: confirm_password,
           profile_image: filePath,
+          user_id:user_id,
         };
         console.log("User Detail:", userDetail);
 

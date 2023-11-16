@@ -1,5 +1,5 @@
+// UsersAction.js
 import React, { useState, useEffect } from "react";
-
 import InfoCard from "../components/Cards/InfoCard";
 import PageTitle from "../components/Typography/PageTitle";
 import { EditIcon, PeopleIcon, TrashIcon } from "../icons";
@@ -16,7 +16,11 @@ import {
   Button,
 } from "@windmill/react-ui";
 
-function Actions({ id }) {
+function Actions({ user_id, onDelete }) {
+  const handleDelete = () => {
+    onDelete(user_id);
+  };
+
   return (
     <>
       <Button
@@ -30,6 +34,7 @@ function Actions({ id }) {
         iconLeft={TrashIcon}
         layout="outline"
         className="focus:shadow-outline-red border-red-500"
+        onClick={handleDelete}
       >
         Delete
       </Button>
@@ -50,16 +55,33 @@ function UsersAction() {
     setPage(p);
   }
 
+  const handleDelete = async (user_id) => {
+    try {
+      const res = await fetch(`http://localhost:4000/users/user_delete/${user_id}`, {
+        method: "DELETE",
+      });
+
+      const result = await res.json();
+
+      if (result.error) {
+        console.error(result.error);
+      } else {
+        // Remove the deleted user from the data array
+        setData((prevData) => prevData.filter((user) => user.user_id !== user_id));
+      }
+    } catch (error) {
+      console.error("Error during delete:", error);
+    }
+  };
+
   useEffect(async () => {
     try {
       const res = await fetch("http://localhost:4000/users/userlist");
-
       const list = await res.json();
 
       setData(list.result);
-      console.log(list.result[0]);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching user list:", error);
     }
   }, []);
 
@@ -67,7 +89,7 @@ function UsersAction() {
     <>
       <PageTitle>UsersAction</PageTitle>
 
-      {/* <!-- Cards --> */}
+      {/* Cards */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
         <InfoCard title="Total users" value={data.length}>
           <RoundIcon
@@ -85,7 +107,6 @@ function UsersAction() {
             <tr>
               <TableCell>Name</TableCell>
               <TableCell>Department</TableCell>
-
               <TableCell>Actions</TableCell>
             </tr>
           </TableHeader>
@@ -96,7 +117,7 @@ function UsersAction() {
                 <TableRow key={i}>
                   <TableCell>
                     <div className="flex items-center text-sm">
-                      <a href="/app/users/pk">
+                      <a href={`/app/users/pk/${user.user_id}`}>
                         <p className="font-semibold">{user.name}</p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
                           {user.email}
@@ -107,14 +128,9 @@ function UsersAction() {
                   <TableCell>
                     <span className="text-sm">{user.department}</span>
                   </TableCell>
-
                   <TableCell>
-                    {/* <span className="text-sm"> */}
-                    {/* {new Date(user.date).toLocaleDateString()} */}
-                    {/* {new Date().toLocaleDateString()}
-                    </span> */}
                     <span className="flex flex-row gap-2">
-                      <Actions id={user._id} />
+                      <Actions user_id={user.user_id} onDelete={handleDelete} />
                     </span>
                   </TableCell>
                 </TableRow>

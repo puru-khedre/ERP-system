@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import { SidebarContext } from "../context/SidebarContext";
 import {
   SearchIcon,
@@ -40,7 +40,22 @@ function Header() {
   const { setIsAdmin } = useContext(context);
 
   const history = useHistory();
+  const [data, setData] = useState([]);
 
+  useEffect(async () => {
+    try {
+      const res = await fetch("http://localhost:4000/users/userlist");
+
+      const list = await res.json();
+
+      setData(list.result);
+      console.log(list.result[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const userWithId11 = data.find((user) => user.id === 11);
   return (
     <header className="z-40 py-4 bg-purple-100 shadow dark:bg-gray-800">
       <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
@@ -122,12 +137,14 @@ function Header() {
               aria-label="Account"
               aria-haspopup="true"
             >
-              <Avatar
-                className="align-middle"
-                src=""
-                alt="profile"
-                aria-hidden="true"
-              />
+      {userWithId11 && (
+          <Avatar
+            className="align-middle"
+            src={`http://localhost:4000/Images/`+ userWithId11.property_images.filename}
+            alt="profile"
+            aria-hidden="true"
+          />
+        )}
             </button>
             <Dropdown
               align="right"
