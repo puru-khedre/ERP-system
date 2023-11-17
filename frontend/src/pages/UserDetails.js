@@ -23,7 +23,7 @@ function UserDetails() {
                       <div className="d-flex flex-column align-items-center text-center">
                         <img
                           src={
-                            `http://localhost:4000` + user.profile_image ||
+                            `http://localhost:4000${user.profile_image}` ||
                             "https://bootdey.com/img/Content/avatar/avatar7.png"
                           }
                           alt="User"

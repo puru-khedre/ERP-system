@@ -17,7 +17,7 @@ const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 export const context = createContext(null);
 
 function App() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
 
   return (
     <context.Provider value={{ isAdmin, setIsAdmin }}>
