@@ -13,7 +13,7 @@ const Login = require("./Router/Authetication/Login");
 const UserList = require("./Router/Dashbord/UserList");
 const UserDetails = require("./Router/Dashbord/UserDetails");
 const UserDelete = require("./Router/Dashbord/UserDelete");
-
+const User_update =require("./Router/Dashbord/User_update")
 const jwt = require("jsonwebtoken");
 const authCheck = require("./middleware/authCheck");
 
@@ -26,6 +26,7 @@ app.use(cors());
 app.use(express.static("public"));
 app.use(Ragistration);
 app.use(Login);
+app.use(User_update);
 
 app.use(UserList);
 app.use(UserDetails);

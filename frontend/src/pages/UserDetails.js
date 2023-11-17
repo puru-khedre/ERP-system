@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 function UserDetails() {
   const [user, setUser] = useState(undefined);
@@ -196,13 +197,13 @@ function UserDetails() {
                           <hr />
                           <div className="row">
                             <div className="col-sm-12">
-                              <a
+                             <NavLink to='/Edit'><a
                                 className="btn btn-info"
                                 target="__blank"
-                                href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"
+                            
                               >
                                 Edit
-                              </a>
+                              </a></NavLink> 
                             </div>
                           </div>
                         </>
