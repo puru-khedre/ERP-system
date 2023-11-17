@@ -14,7 +14,7 @@ const Modals = lazy(() => import("../pages/Modals"));
 const Tables = lazy(() => import("../pages/Tables"));
 const Page404 = lazy(() => import("../pages/404"));
 const Blank = lazy(() => import("../pages/Blank"));
-
+// const Edit =lazy(()=>import("../Edit"))
 /**
  * ⚠ These are internal routes!
  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -35,6 +35,7 @@ const adminRoutes = [
     component: Users, // view rendered
   },
   { path: "/users-action", component: UsersAction },
+
   // {
   //   path: "/forms",
   //   component: Forms,
@@ -74,6 +75,10 @@ const normalRoutes = [
     path: "/details",
     component: UserDetails,
   },
+  // {
+  //   path: "/Edit", // the url
+  //   component: Edit, // view rendered
+  // },
 ];
 
 const routes = {
