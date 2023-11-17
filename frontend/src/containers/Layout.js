@@ -8,6 +8,7 @@ import Main from "../containers/Main";
 import ThemedSuspense from "../components/ThemedSuspense";
 import { SidebarContext } from "../context/SidebarContext";
 import { User } from "../pages/Users";
+import Edit from "../pages/Edit";
 import { context } from "../App";
 
 const Page404 = lazy(() => import("../pages/404"));
@@ -51,6 +52,7 @@ function Layout() {
                   })}
                   {/* <Redirect exact from="/app" to={`/app/dashboard`} /> */}
                   <Route exact path="/app/users/:id" component={User} />
+                  <Route exact path="/app/users/edit/:id" component={Edit} />
                 </>
               ) : (
                 <>

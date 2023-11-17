@@ -8,7 +8,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
 import RegistrationForm from "./Create";
-import Edit from "./Edit";
+import Edit from "./pages/Edit";
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
 const CreateAccount = lazy(() => import("./pages/CreateAccount"));
@@ -29,7 +29,7 @@ function App() {
           <Route path="/create-account" component={CreateAccount} />
           <Route path="/forgot-password" component={ForgotPassword} />
           <Route path="/create" component={RegistrationForm} />
-          <Route path="/Edit" component={Edit} />
+          {/* <Route path="/Edit" component={Edit} /> */}
           {/* Place new routes over this */}
           <Route path="/app" component={Layout} />
           {/* If you have an index page, you can remothis Redirect */}

@@ -24,12 +24,11 @@ function uniqid() {
   return new Date().getTime() + Math.random().toString(16).slice(2);
 }
 
-
-router.put("/update/:id", PropertyImages, async (req, res) => {
+router.post("/update/:id", PropertyImages, async (req, res) => {
+  console.log("puru");
   try {
-    const userId = req.params.userId;
+    const userId = req.params.id;
 
-  
     const updatedUser = await Users.findOneAndUpdate(
       { user_id: userId },
       { $set: req.body },
@@ -46,4 +45,11 @@ router.put("/update/:id", PropertyImages, async (req, res) => {
     res.status(500).send({ error: "Internal Server Error" });
   }
 });
+
+router.post("/puru/:id", (req, res) => {
+  console.log(req.params);
+  res.send("hello");
+});
+
+// router.
 module.exports = router;

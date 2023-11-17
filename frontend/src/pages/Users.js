@@ -4,7 +4,7 @@ import InfoCard from "../components/Cards/InfoCard";
 import PageTitle from "../components/Typography/PageTitle";
 import { PeopleIcon } from "../icons";
 import RoundIcon from "../components/RoundIcon";
-import response from "../utils/demo/tableData";
+import { Link } from "react-router-dom";
 import "./user.css";
 import {
   TableBody,
@@ -326,13 +326,13 @@ export function User({ match, ...props }) {
                           <hr />
                           <div className="row">
                             <div className="col-sm-12">
-                              <a
+                              <Link
                                 className="btn btn-info"
                                 target="__blank"
-                                href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"
+                                to={"edit/" + user.result.user_id}
                               >
                                 Edit
-                              </a>
+                              </Link>
                             </div>
                           </div>
                         </>

@@ -196,15 +196,7 @@ function UserDetails() {
                           </div>
                           <hr />
                           <div className="row">
-                            <div className="col-sm-12">
-                             <NavLink to='/Edit'><a
-                                className="btn btn-info"
-                                target="__blank"
-                            
-                              >
-                                Edit
-                              </a></NavLink> 
-                            </div>
+                            <div className="col-sm-12"></div>
                           </div>
                         </>
                       )}
