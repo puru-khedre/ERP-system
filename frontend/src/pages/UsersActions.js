@@ -88,37 +88,43 @@ function UsersAction() {
             </tr>
           </TableHeader>
           <TableBody>
-            {data
-              .slice((page - 1) * resultsPerPage, page * resultsPerPage)
-              .map((user, i) => (
-                <TableRow key={i}>
-                  <TableCell>
-                    <div className="flex items-center text-sm">
-                      <a href={`/app/users/${user.user_id}`}>
-                        <p className="font-semibold">{user.name}</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          {user.email}
-                        </p>
-                      </a>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.department}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="flex flex-row gap-2">
-                      <Button
-                        iconLeft={TrashIcon}
-                        layout="outline"
-                        className="focus:shadow-outline-red border-red-500"
-                        onClick={() => handleDelete(user.user_id)}
-                      >
-                        Delete
-                      </Button>
-                    </span>
-                  </TableCell>
-                </TableRow>
-              ))}
+            {data.length === 0 ? (
+              <TableRow>
+                <TableCell className="font-bold text-xl">Loading...</TableCell>
+              </TableRow>
+            ) : (
+              data
+                .slice((page - 1) * resultsPerPage, page * resultsPerPage)
+                .map((user, i) => (
+                  <TableRow key={i}>
+                    <TableCell>
+                      <div className="flex items-center text-sm">
+                        <a href={`/app/users/${user.user_id}`}>
+                          <p className="font-semibold">{user.name}</p>
+                          <p className="text-xs text-gray-600 dark:text-gray-400">
+                            {user.email}
+                          </p>
+                        </a>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.department}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="flex flex-row gap-2">
+                        <Button
+                          iconLeft={TrashIcon}
+                          layout="outline"
+                          className="focus:shadow-outline-red border-red-500"
+                          onClick={() => handleDelete(user.user_id)}
+                        >
+                          Delete
+                        </Button>
+                      </span>
+                    </TableCell>
+                  </TableRow>
+                ))
+            )}
           </TableBody>
         </Table>
 

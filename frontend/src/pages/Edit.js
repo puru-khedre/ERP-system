@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { Button, Input, Select } from "@windmill/react-ui";
 import "../Create.css";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 const Edit = () => {
   const { id } = useParams();
@@ -29,6 +29,8 @@ const Edit = () => {
     confirm_password: "",
     PropertyImages: null,
   });
+
+  const history = useHistory();
 
   useEffect(() => {
     console.log("pk", id);
@@ -82,6 +84,7 @@ const Edit = () => {
 
       if (response.ok) {
         console.log("User data updated successfully");
+        history.push("/app/users");
         // Optionally, you can redirect the user or perform other actions
       } else {
         console.error("Failed to update user data");

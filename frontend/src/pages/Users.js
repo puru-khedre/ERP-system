@@ -74,36 +74,42 @@ function Users() {
             </tr>
           </TableHeader>
           <TableBody>
-            {data
-              .slice((page - 1) * resultsPerPage, page * resultsPerPage)
-              .map((user, i) => (
-                <TableRow key={i}>
-                  <TableCell>
-                    <div className="flex items-center text-sm">
-                      {/* to={`/PropertyPage/${property.property_id}`}  */}
-                      <a href={`/app/users/${user.user_id}`}>
-                        <p className="font-semibold">{user.name}</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          {user.email}
-                        </p>
-                      </a>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.department}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{user.address}</span>
-                    {/* <Badge type={user.status}>{user.status}</Badge> */}
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">
-                      {/* {new Date(user.date).toLocaleDateString()} */}
-                      {new Date().toLocaleDateString()}
-                    </span>
-                  </TableCell>
-                </TableRow>
-              ))}
+            {data.length == 0 ? (
+              <TableRow>
+                <TableCell className="font-bold text-xl">Loading...</TableCell>
+              </TableRow>
+            ) : (
+              data
+                .slice((page - 1) * resultsPerPage, page * resultsPerPage)
+                .map((user, i) => (
+                  <TableRow key={i}>
+                    <TableCell>
+                      <div className="flex items-center text-sm">
+                        {/* to={`/PropertyPage/${property.property_id}`}  */}
+                        <a href={`/app/users/${user.user_id}`}>
+                          <p className="font-semibold">{user.name}</p>
+                          <p className="text-xs text-gray-600 dark:text-gray-400">
+                            {user.email}
+                          </p>
+                        </a>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.department}</span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">{user.address}</span>
+                      {/* <Badge type={user.status}>{user.status}</Badge> */}
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-sm">
+                        {/* {new Date(user.date).toLocaleDateString()} */}
+                        {new Date().toLocaleDateString()}
+                      </span>
+                    </TableCell>
+                  </TableRow>
+                ))
+            )}
           </TableBody>
         </Table>
 

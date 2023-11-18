@@ -55,7 +55,7 @@ router.post("/auth/signup", PropertyImages, async (req, res) => {
 
     Users.find().count(async function (err, count) {
       console.log("Number of docs: ", count);
-      user_id = count;
+      const user_id = count;
 
       const encrypt_password = await bcrypt.hash(password, 10);
 
@@ -141,7 +141,7 @@ router.post("/auth/signup", PropertyImages, async (req, res) => {
           password: encrypt_password,
           confirm_password: confirm_password,
           profile_image: filePath,
-          user_id:user_id,
+          user_id: user_id,
         };
         console.log("User Detail:", userDetail);
 

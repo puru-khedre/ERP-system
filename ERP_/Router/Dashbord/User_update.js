@@ -29,6 +29,9 @@ router.post("/update/:id", PropertyImages, async (req, res) => {
   try {
     const userId = req.params.id;
 
+    const encrypt_password = await bcrypt.hash(req.body.password, 10);
+    req.body.password = encrypt_password;
+
     const updatedUser = await Users.findOneAndUpdate(
       { user_id: userId },
       { $set: req.body },
@@ -44,11 +47,6 @@ router.post("/update/:id", PropertyImages, async (req, res) => {
     console.error("Error in update endpoint:", error);
     res.status(500).send({ error: "Internal Server Error" });
   }
-});
-
-router.post("/puru/:id", (req, res) => {
-  console.log(req.params);
-  res.send("hello");
 });
 
 // router.
