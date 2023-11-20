@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from "react";
 import InfoCard from "../components/Cards/InfoCard";
 import PageTitle from "../components/Typography/PageTitle";
-import { EditIcon, PeopleIcon, TrashIcon } from "../icons";
+import {
+  EditIcon,
+  FillPersonIcon,
+  OutlinePersonIcon,
+  PeopleIcon,
+  TrashIcon,
+} from "../icons";
 import RoundIcon from "../components/RoundIcon";
 import {
   TableBody,
@@ -15,6 +21,7 @@ import {
   Pagination,
   Button,
 } from "@windmill/react-ui";
+import { Link, useHistory } from "react-router-dom";
 
 function UsersAction() {
   const [page, setPage] = useState(1);
@@ -23,6 +30,8 @@ function UsersAction() {
   // pagination setup
   const resultsPerPage = 25;
   const totalResults = data.length;
+
+  const history = useHistory();
 
   // pagination change control
   function onPageChange(p) {
@@ -112,6 +121,24 @@ function UsersAction() {
                     </TableCell>
                     <TableCell>
                       <span className="flex flex-row gap-2">
+                        <Link to={"/app/users/" + user.user_id}>
+                          <Button
+                            iconLeft={FillPersonIcon}
+                            layout="outline"
+                            className="focus:shadow-outline-red border-red-500"
+                          >
+                            View
+                          </Button>
+                        </Link>
+                        <Link to={"/app/users/edit/" + user.user_id}>
+                          <Button
+                            iconLeft={EditIcon}
+                            layout="outline"
+                            className="focus:shadow-outline-red border-red-500"
+                          >
+                            Edit
+                          </Button>
+                        </Link>
                         <Button
                           iconLeft={TrashIcon}
                           layout="outline"
